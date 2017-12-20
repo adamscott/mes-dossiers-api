@@ -6,7 +6,6 @@ services:
   - postgresql
 
 install:
-  - pyenv install
   - pyenv install 3.5.4
   - pyenv install 3.6.3
   - pyenv local 3.6.3 3.5.4

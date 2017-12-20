@@ -1,13 +1,16 @@
 [run]
-branch = True
+branch = true
 source =
     mesdossiers
+parallel = true
 
 [paths]
 source =
    src/mesdossiers
    .tox/*/lib/python*/site-packages/mesdossiers
-   .tox/pypy/site-packages/mesdossiers
+   .tox/pypy*/site-packages/mesdossiers
 
 [report]
 show_missing = True
+precision = 2
+omit = *migrations*

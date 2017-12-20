@@ -1,14 +1,9 @@
-import pytest
-
-from mesdossiers.database import db
 from mesdossiers.models import User, Group
-
-from .conftest import app
 
 
 class TestUser:
 
-    def test_init(self):
+    def test_init(self, app, db, session):
         with app.app_context():
             admin_group = Group(name="Admin")
 
@@ -30,12 +25,14 @@ class TestUser:
                 ]
             )
 
-            db.session.add(john)
-            db.session.add(oliver)
-            db.session.commit()
+            session.add(john)
+            session.add(oliver)
+            session.commit()
 
-            alls = User.query.filter(
+            print(User.query.filter(
                 User.groups.any(Group.name == 'Admin')
-            ).all()
+            ).all())
 
-            print(alls)
+            assert len(User.query.filter(
+                User.groups.any(Group.name == 'Admin')
+            ).all()) == 2

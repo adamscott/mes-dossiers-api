@@ -1,0 +1,17 @@
+sudo: required
+
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+
+services:
+  - postgresql
+
+install:
+  - pip install -e .
+  - pip install tox
+
+script:
+  - tox

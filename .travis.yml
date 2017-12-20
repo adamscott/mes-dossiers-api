@@ -4,6 +4,14 @@ python:
   - "3.5"
   - "3.6"
 
+env:
+  COVERALLS_PARALLEL=false
+
+matrix:
+  include:
+    - python: "3.6"
+      env: COVERALLS_PARALLEL=true
+
 services:
   - postgresql
 

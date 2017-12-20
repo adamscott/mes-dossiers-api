@@ -2,4 +2,5 @@ pytest
 pytest-flask
 pytest-cov
 pytest-xdist
+pytest-pep8
 testing.postgresql

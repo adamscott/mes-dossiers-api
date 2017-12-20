@@ -1,0 +1,14 @@
+[run]
+branch = True
+source =
+    mesdossiers
+data_file = .coverage/.coverage
+
+[paths]
+source =
+   src/mesdossiers
+   .tox/*/lib/python*/site-packages/mesdossiers
+   .tox/pypy/site-packages/mesdossiers
+
+[report]
+show_missing = True

@@ -1,11 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
+NAME = 'mesdossiers'
+PACKAGES = find_packages(where='src')
+INCLUDE_PACKAGE_DATA = True
+INSTALL_REQUIRES = [
+    'flask',
+    'flask_sqlalchemy'
+]
 
 setup(
-    name='mesdossiers',
-    packages=['mesdossiers'],
-    include_package_data=True,
-    install_requires=[
-        'flask',
-        'flask_sqlalchemy'
-    ],
+    name=NAME,
+    packages=PACKAGES,
+    package_dir={'': 'src'},
+    include_package_data=INCLUDE_PACKAGE_DATA,
+    install_requires=INSTALL_REQUIRES,
 )

@@ -8,11 +8,9 @@ services:
   - postgresql
 
 install:
-  - pip install flake8
   - pip install detox
   - pip install tox-travis
   - pip install -e .
 
 script:
-  - flake8
   - detox

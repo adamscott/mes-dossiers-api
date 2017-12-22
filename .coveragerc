@@ -2,7 +2,6 @@
 branch = true
 source =
     mesdossiers
-parallel = true
 
 [paths]
 source =

@@ -1,7 +1,11 @@
 from flask import Flask
+from flask_restful import Api
+
+from .resources import Cases
+from .config import Config
 
 
-def create_app(name=__name__.split('.')[0], config_object=".config.Config", settings_override=None):
+def create_app(name=__name__.split('.')[0], config_object=Config, settings_override=None):
     app = Flask(name)
     app.config.from_object(config_object)
 
@@ -16,7 +20,13 @@ def create_app(name=__name__.split('.')[0], config_object=".config.Config", sett
         db.create_all()
         db.session.commit()
 
+    api = Api(app)
+    api.add_resource(Cases, '/')
+
     return app
+
+
+app = create_app()
 
 
 def main():

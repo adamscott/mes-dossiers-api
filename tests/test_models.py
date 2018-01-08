@@ -36,3 +36,10 @@ class TestUser:
             assert len(User.query.filter(
                 User.groups.any(Group.name == 'Admin')
             ).all()) == 2
+
+            print(User.query.filter(User.username == 'john01').one())
+
+    def test_auth(self, app):
+        with app.app_context():
+            john = User.query.filter(User.username == 'john01').one()
+            print('Auth token for john: ', john.encode_auth_token())

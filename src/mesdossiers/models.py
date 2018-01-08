@@ -1,5 +1,7 @@
 import enum
 
+from passlib.hash import sha512_crypt
+
 from datetime import datetime
 from .database import db, \
                       Column, relationship, ForeignKey, Table, \
@@ -7,6 +9,8 @@ from .database import db, \
                       Model, SurrogatePKMixin, TimestampMixin
 
 from typing import List
+
+from .auth import encode_auth_token as _encode_auth_token
 
 
 user_group = Table(
@@ -33,18 +37,27 @@ class User(SurrogatePKMixin, TimestampMixin, Model):
     email = Column(String(120), unique=True, nullable=False)
     password = Column(String(128), nullable=False)
 
+    profile_id = Column(Integer, ForeignKey("profile.id"))
+    profile = relationship("Profile")
+
     groups = relationship("Group", secondary=user_group, back_populates="users")
 
-    def __init__(self, username: str, email: str, password: str, groups: List['Group']=None, **kwargs):
+    def __init__(self, username: str, email: str, password: str, profile: 'Profile'=None,
+                 groups: List['Group']=None, **kwargs):
         super().__init__(**kwargs)
         self.username = username
         self.email = email
-        self.password = password
+        self.password = sha512_crypt(password)
         if groups is not None:
             self.groups = groups
+        if profile is not None:
+            self.profile = profile
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def encode_auth_token(self):
+        return _encode_auth_token(self.id)
 
 
 class Profile(SurrogatePKMixin, TimestampMixin, Model):

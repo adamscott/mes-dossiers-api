@@ -3,3 +3,4 @@ pytest-flask
 pytest-cov
 pytest-pep8
 testing.postgresql
+coveralls
